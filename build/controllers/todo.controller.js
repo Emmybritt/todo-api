@@ -45,7 +45,20 @@ class TodoController {
         }
     }
     async createTodo(req, res) {
+        const { title, description, priority, status, dueDate, archived } = req.body;
         try {
+            const newTodo = await todo_model_1.default.create({
+                title,
+                description,
+                priority,
+                status,
+                dueDate,
+                archived,
+            });
+            newTodo.save();
+            return res
+                .status(201)
+                .json({ msg: 'Todo created successfully', status: true });
         }
         catch (error) {
             return res
@@ -54,7 +67,12 @@ class TodoController {
         }
     }
     async getTodoById(req, res) {
+        const { id } = req.params;
         try {
+            const result = await todo_model_1.default.findById(id);
+            return res
+                .status(200)
+                .json({ msg: 'Todo found', result, status: true });
         }
         catch (error) {
             return res
@@ -63,7 +81,12 @@ class TodoController {
         }
     }
     async updateTodo(req, res) {
+        const { id } = req.params;
         try {
+            await todo_model_1.default.updateOne({ _id: id }, { ...req.body });
+            return res
+                .status(200)
+                .json({ msg: 'Movie updated successfully', status: true });
         }
         catch (error) {
             return res
@@ -72,7 +95,12 @@ class TodoController {
         }
     }
     async deleteTodoById(req, res) {
+        const { id } = req.params;
         try {
+            await todo_model_1.default.deleteOne({ _id: id });
+            return res
+                .status(200)
+                .json({ msg: 'Todo deleted successfully', status: true });
         }
         catch (error) {
             return res

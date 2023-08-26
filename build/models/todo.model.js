@@ -11,9 +11,9 @@ const todoSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     priority: { type: String },
-    status: { type: String, default: 'notStarted' },
+    status: { type: String, default: 'active' },
     dueDate: { type: Date },
-    archived: { type: String, default: 0 },
+    archived: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now() },
     updatedAt: { type: Date, default: Date.now() },
 }, { versionKey: false });

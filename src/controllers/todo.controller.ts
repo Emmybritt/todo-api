@@ -58,7 +58,22 @@ class TodoController {
     }
 
     async createTodo(req: Request, res: Response) {
+        const { title, description, priority, status, dueDate, archived } =
+            req.body;
+
         try {
+            const newTodo = await todo.create({
+                title,
+                description,
+                priority,
+                status,
+                dueDate,
+                archived,
+            });
+            newTodo.save();
+            return res
+                .status(201)
+                .json({ msg: 'Todo created successfully', status: true });
         } catch (error) {
             return res
                 .status(500)
