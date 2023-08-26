@@ -67,7 +67,12 @@ class TodoController {
     }
 
     async getTodoById(req: Request, res: Response) {
+        const { id } = req.params;
         try {
+            const result = await todo.findById(id);
+            return res
+                .status(200)
+                .json({ msg: 'Todo found', result, status: true });
         } catch (error) {
             return res
                 .status(500)
@@ -76,7 +81,12 @@ class TodoController {
     }
 
     async updateTodo(req: Request, res: Response) {
+        const { id } = req.params;
         try {
+            await todo.updateOne({ _id: id }, { ...req.body });
+            return res
+                .status(200)
+                .json({ msg: 'Movie updated successfully', status: true });
         } catch (error) {
             return res
                 .status(500)
@@ -85,7 +95,12 @@ class TodoController {
     }
 
     async deleteTodoById(req: Request, res: Response) {
+        const { id } = req.params;
         try {
+            await todo.deleteOne({ _id: id });
+            return res
+                .status(200)
+                .json({ msg: 'Todo deleted successfully', status: true });
         } catch (error) {
             return res
                 .status(500)
