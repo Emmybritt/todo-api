@@ -6,25 +6,14 @@ import { router } from './routes';
 
 const app = express();
 // app.use();
-app.use(function (req, res, next) {
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept',
-    );
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-});
-
 app.use(
     cors({
-        credentials: true,
-        origin: [],
-        allowedHeaders: [
-            'Origin, X-Requested-With, Content-Type, Accept',
-            'Authorization',
-            'Host',
-            'User-Agent',
+        origin: [
+            'http://localhost:5173',
+            'https://sprightly-marzipan-3f83a5.netlify.app',
         ],
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: false,
     }),
 );
 app.use(helmet());
