@@ -27,12 +27,12 @@ class TodoController {
             if (createdAt) {
                 query.createdAt = createdAt;
             }
-            const movies = await todo_model_1.default.find(query).skip(skip).limit(pageSize);
+            const todos = await todo_model_1.default.find(query).skip(skip).limit(pageSize);
             const totalCount = await todo_model_1.default.countDocuments(query);
             return res.status(200).json({
                 msg: 'Todos found',
                 status: true,
-                movies,
+                todos,
                 total: totalCount,
                 page,
                 pageSize,
